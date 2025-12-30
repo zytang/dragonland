@@ -1,9 +1,9 @@
 import streamlit as st
 import base64
-import translations
+import i18n
 import importlib
-importlib.reload(translations)
-from translations import get_text
+importlib.reload(i18n)
+from i18n import get_text
 
 # Page Config
 st.set_page_config(

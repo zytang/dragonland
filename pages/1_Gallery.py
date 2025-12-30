@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-from translations import get_text
+from i18n import get_text
 from utils import show_language_selector
 
 st.set_page_config(page_title="Dragon Gallery", page_icon="🖼️", layout="wide")

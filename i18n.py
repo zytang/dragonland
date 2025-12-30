@@ -185,6 +185,8 @@ translations = {
     "math_correct": {"en": "Correct! You are a Math Wizard! 🎈", "zh": "答对了！你是算术小天才！🎈"},
     "math_wrong": {"en": "Oops, try again!", "zh": "哎呀，再试一次！"},
     "math_check": {"en": "Check Answer", "zh": "检查答案"},
+    "math_input_label": {"en": "Count the dragons:", "zh": "数数龙："},
+
 
     # Friendship Game
     "friend_q": {"en": "You see a new dragon who looks shy. What do you do?", "zh": "你看到一只新来的龙看起来很害羞。你会怎么做？"},
@@ -193,6 +195,10 @@ translations = {
     "friend_fb1": {"en": "Perfect! Kindness makes great friends.", "zh": "太棒了！善良能交到好朋友。"},
     "friend_fb2": {"en": "Oh no! That might be scary. Try being gentle.", "zh": "哦不！那样会吓到它的。试着温柔一点。"},
     "friend_magic": {"en": "Practice Magic Words:", "zh": "练习魔法咒语（礼貌用语）："},
+    "magic_please": {"en": "Please", "zh": "请"},
+    "magic_thank_you": {"en": "Thank You", "zh": "谢谢"},
+    "magic_sorry": {"en": "Sorry", "zh": "对不起"},
+
     
     # Name Creator
     "name_prefix": {"en": "First Part", "zh": "名字前半部分"},
@@ -200,12 +206,16 @@ translations = {
     "name_result": {"en": "Your Dragon Name is: **{}**", "zh": "你的神龙名字是：**{}**"},
     
     # Color Match
+    "color_instruction": {"en": "Click the matching color block:", "zh": "点击对应的颜色方块："},
     "color_q": {"en": "What color is the **{}** element?", "zh": "**{}** 元素是什么颜色的？"},
     "color_fire": {"en": "Fire", "zh": "火 (Fire)"},
     "color_water": {"en": "Water", "zh": "水 (Water)"},
     "color_nature": {"en": "Nature", "zh": "自然 (Nature)"},
     "color_correct": {"en": "That matches!", "zh": "配对成功！"},
-    "color_wrong": {"en": "Not quite...", "zh": "不太对哦……"}
+    "color_wrong": {"en": "Not quite...", "zh": "不太对哦……"},
+    "color_red": {"en": "Red", "zh": "红色"},
+    "color_blue": {"en": "Blue", "zh": "蓝色"},
+    "color_green": {"en": "Green", "zh": "绿色"}
 }
 
 def get_text(key, lang):

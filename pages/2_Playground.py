@@ -1,12 +1,9 @@
 import streamlit as st
 import random
-import translations
+import i18n
 import importlib
-importlib.reload(translations)
-import translations
-import importlib
-importlib.reload(translations)
-from translations import get_text
+importlib.reload(i18n)
+from i18n import get_text
 from utils import show_language_selector
 
 st.set_page_config(page_title="Dragon Playground", page_icon="🎮", layout="wide")
