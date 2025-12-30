@@ -1,7 +1,13 @@
 import streamlit as st
 import os
+from translations import get_text
 
 st.set_page_config(page_title="Dragon Gallery", page_icon="🖼️", layout="wide")
+
+# Determine Language
+if 'language' not in st.session_state:
+    st.session_state.language = 'en'
+lang = st.session_state.language
 
 def local_css(file_name):
     with open(file_name) as f:
@@ -9,8 +15,12 @@ def local_css(file_name):
 
 local_css("assets/style.css")
 
-st.title("Meet the Dragons! 🐉")
-st.markdown("Here are Mori's best friends. Click the buttons to read their stories!")
+# --- Language Consistency Check ---
+# If user refreshed directly here, we might want the sidebar simple toggle again or just rely on session state persistence.
+# For simplicity, we assume they enter via Home or state persists.
+
+st.title(get_text("gallery_title", lang))
+st.markdown(get_text("gallery_subtitle", lang))
 
 # --- Story Modal Function ---
 @st.dialog("Dragon Tale 📖")
@@ -20,10 +30,12 @@ def show_story(name, story, img_path):
         if os.path.exists(img_path):
             st.image(img_path, use_container_width=True)
     with col2:
+        # Title of the modal story
         st.subheader(f"{name} & Mori")
         st.markdown(f"_{story}_")
         st.markdown("---")
-        if st.button("Close", key=f"close_{name}"):
+        # Use proper language for Close button
+        if st.button(get_text("close_btn", lang), key=f"close_{name}"):
             st.rerun()
 
 # --- Card Function ---
@@ -36,54 +48,57 @@ def dragon_card(name, title, img_path, food, superpower, story_text, col, key_id
         </div>
         """, unsafe_allow_html=True)
         
-        # Image display
         if os.path.exists(img_path):
             st.image(img_path, use_container_width=True)
         else:
-            st.warning(f"Image for {name} is hatching... 🥚")
+            st.warning(get_text("img_hatching", lang).format(name))
         
-        # "Clickable Image" Simulation -> Button
-        # We use a button that looks inviting underneath the image
-        if st.button(f"📖 Read {name}'s Story", key=key_id, use_container_width=True):
+        # Read Story Button
+        btn_label = get_text("btn_read_story", lang).format(name.split()[0]) # Just use first name for button brevity
+        if st.button(btn_label, key=key_id, use_container_width=True):
             show_story(name, story_text, img_path)
 
         st.markdown(f"""
         <div style="background-color: #f0f2f6; padding: 10px; border-radius: 10px; text-align: left; margin-top: 10px;">
-            <p><strong>🍎 Favorite Snack:</strong> {food}</p>
-            <p><strong>✨ Superpower:</strong> {superpower}</p>
+            <p><strong>{get_text("food_label", lang)}</strong> {food}</p>
+            <p><strong>{get_text("power_label", lang)}</strong> {superpower}</p>
         </div>
         """, unsafe_allow_html=True)
 
-# --- Stories ---
-stories = {
-    "ignis": "One night, Mori was afraid of the dark forest. Ignis flew down and lit up the path with gentle, warm flames, showing Mori that the scary shadows were just dancing trees!",
-    "aqua": "Mori wanted to see the fish but couldn't swim deep enough. Aqua blew a giant magical bubble around Mori, turning it into a submarine so they could explore the coral reef together!",
-    "terra": "Mori found a bird with a broken nest high in a tree. Terra stomped his little foot, and a vine grew instantly to lift Mori up so he could help the bird fix its home.",
-    "frosty": "It was a scorching hot day and everyone was sad. Frosty sneezed a glittery ice cloud, turning the town square into a snowy playground for the best summer sled race ever!",
-    "aurelius": "Mori lost his favorite toy in the tall grass. Aurelius glowed with a soft golden light, making the hidden toy sparkle so Mori could find it immediately!"
-}
+# --- Stories & Keys ---
+# We retrieve them dynamically based on language
+dragons = [
+    ("ignis", "assets/dragon_fire.png", "btn_ignis"),
+    ("aqua", "assets/dragon_water.png", "btn_aqua"),
+    ("terra", "assets/dragon_nature.png", "btn_terra"),
+    # Row 2
+    ("frosty", "assets/dragon_ice.png", "btn_frosty"),
+    ("aurelius", "assets/dragon_gold.png", "btn_aurelius")
+]
 
-# --- Layout ---
+# Layout
 col1, col2, col3 = st.columns(3)
-col4, col5 = st.columns([1, 1]) # Second row
+col4, col5 = st.columns([1, 1])
+cols = [col1, col2, col3, col4, col5]
 
-# Row 1
-dragon_card("Ignis 🔥", "The Creative Spark", "assets/dragon_fire.png", "Roasted Marshmallows", "Lighting up ideas!", stories["ignis"], col1, "btn_ignis")
-dragon_card("Aqua 💧", "The Calm Friend", "assets/dragon_water.png", "Blueberry Smoothies", "Healing scratches", stories["aqua"], col2, "btn_aqua")
-dragon_card("Terra 🌿", "The Nature Guardian", "assets/dragon_nature.png", "Sunlight & Cookies", "Growing flowers instantly", stories["terra"], col3, "btn_terra")
-
-# Row 2 (Centered using columns)
-# Used a simpler separate layout for row 2 to avoid alignment issues
-with col4:
-    pass # Spacer if needed, or just standard flow. 
-    # Actually col4, col5 are 50/50.
+for i, (key, img, btn_id) in enumerate(dragons):
+    name = get_text(f"{key}_name", lang)
+    title = get_text(f"{key}_title", lang)
+    food = get_text(f"{key}_food", lang)
+    power = get_text(f"{key}_power", lang)
+    story = get_text(f"{key}_story", lang)
     
-dragon_card("Frosty ❄️", "The Cool Thinker", "assets/dragon_ice.png", "Ice Cream Cones", "Freezing bad moments", stories["frosty"], col4, "btn_frosty")
-dragon_card("Aurelius 🪙", "The Golden Heart", "assets/dragon_gold.png", "Pancakes with Syrup", "Making everyone feel special", stories["aurelius"], col5, "btn_aurelius")
+    # Decide column
+    current_col = cols[i]
+    
+    dragon_card(name, title, img, food, power, story, current_col, btn_id)
 
 st.markdown("---")
-st.subheader("Which dragon is your favorite?")
-vote = st.radio("Pick one!", ["Ignis", "Aqua", "Terra", "Frosty", "Aurelius"], horizontal=True)
+st.subheader(get_text("vote_label", lang))
+# For voting options, we just use the keys or localized names. Let's use localized names.
+dragon_names_map = {get_text(f"{k}_name", lang).split()[0]: k for k, _, _ in dragons}
+vote = st.radio(get_text("vote_placeholder", lang), list(dragon_names_map.keys()), horizontal=True)
+
 if vote:
     st.balloons()
-    st.success(f"Yay! {vote} loves you too! ❤️")
+    st.success(get_text("vote_success", lang).format(vote))

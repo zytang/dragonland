@@ -1,5 +1,6 @@
 import streamlit as st
 import base64
+from translations import get_text
 
 # Page Config
 st.set_page_config(
@@ -8,6 +9,30 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# --- Language State ---
+if 'language' not in st.session_state:
+    st.session_state.language = 'en'
+
+def set_language():
+    st.session_state.language = st.session_state.lang_select
+
+# Sidebar Language Selector
+st.sidebar.markdown("### 🌐 Settings")
+lang_options = {'🇺🇸 English': 'en', '🇨🇳 中文 (Chinese)': 'zh'}
+# Reverse lookup for formatting
+current_fmt = '🇺🇸 English' if st.session_state.language == 'en' else '🇨🇳 中文 (Chinese)'
+
+selected_lang = st.sidebar.radio(
+    "Language / 语言",
+    options=list(lang_options.keys()),
+    index=list(lang_options.keys()).index(current_fmt),
+    key="lang_select",
+    on_change=set_language
+)
+# Ensure state sync
+st.session_state.language = lang_options[selected_lang]
+lang = st.session_state.language
 
 # Function to set background image
 def set_bg_hack(main_bg):
@@ -54,41 +79,41 @@ except FileNotFoundError:
 # --- Main Content ---
 
 # 1. Hero Title (Floating)
-st.markdown("""
+st.markdown(f"""
 <div class="hero-header">
     <h1 class="hero-title">
-        Welcome to Dragonland! 🏰
+        {get_text("home_title", lang)}
     </h1>
     <h3 class="hero-subtitle">
-        Where Friendship & Imagination Fly High
+        {get_text("home_subtitle", lang)}
     </h3>
 </div>
 """, unsafe_allow_html=True)
 
 # 2. Story Card (Consolidated HTML for Glass Effect)
-st.markdown("""
+st.markdown(f"""
 <div class="glass-card full-width-card">
     <div style="text-align: center;">
-        <h2 style="color: #FF6B6B; font-size: 2.5rem; margin-bottom: 20px;">The Boy and the Dragon 🌟</h2>
+        <h2 style="color: #FF6B6B; font-size: 2.5rem; margin-bottom: 20px;">{get_text("story_card_title", lang)}</h2>
         <div style="font-size: 1.3rem; line-height: 1.8; color: #333;">
-            <p>Once upon a time, in a world full of wonder, lived a kind-hearted boy named <strong>Mori</strong>.</p>
-            <p>Mori dreamed of a future where everyone was happy and safe. One day, he met <strong>Spark</strong>, a magical dragon who showed him that the real magic is <strong>Kindness</strong> and <strong>Smart Thinking</strong>.</p>
-            <p>Together, they traveled to the <strong>City of Tomorrow</strong>, where:</p>
+            <p>{get_text("story_p1", lang)}</p>
+            <p>{get_text("story_p2", lang)}</p>
+            <p>{get_text("story_p3", lang)}</p>
             <div style="display: flex; flex-direction: column; gap: 15px; background: rgba(255,255,255,0.6); padding: 25px; border-radius: 20px; text-align: left; margin-top: 20px;">
                 <div style="display: flex; align-items: start; gap: 15px;">
                     <span style="font-size: 1.5rem; line-height: 1;">🤖</span>
-                    <span><strong>Technology</strong> helps us do boring chores so we have more time to play!</span>
+                    <span>{get_text("story_list_1", lang)}</span>
                 </div>
                 <div style="display: flex; align-items: start; gap: 15px;">
                     <span style="font-size: 1.5rem; line-height: 1;">🌍</span>
-                    <span><strong>Nature</strong> grows wild and free alongside our homes.</span>
+                    <span>{get_text("story_list_2", lang)}</span>
                 </div>
                 <div style="display: flex; align-items: start; gap: 15px;">
                     <span style="font-size: 1.5rem; line-height: 1;">🤝</span>
-                    <span><strong>Everyone</strong> is treated like a VIP (Very Important Person)!</span>
+                    <span>{get_text("story_list_3", lang)}</span>
                 </div>
             </div>
-            <p style="margin-top: 30px; font-size: 1.5rem; font-weight: 800; color: #FF6B6B;">Join Mori and Spark on their quest here:</p>
+            <p style="margin-top: 30px; font-size: 1.5rem; font-weight: 800; color: #FF6B6B;">{get_text("join_quest", lang)}</p>
         </div>
     </div>
 </div>
@@ -97,25 +122,25 @@ st.markdown("""
 # 3. Action Button (Centered)
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
-    if st.button("Start the Adventure! 🚀", use_container_width=True):
+    if st.button(get_text("btn_start", lang), use_container_width=True):
         st.switch_page("pages/1_Gallery.py")
 
-# 4. Metrics (Custom HTML for styling consistency)
-st.markdown("""
+# 4. Metrics
+st.markdown(f"""
 <div class="glass-card full-width-card" style="margin-top: 40px;">
-    <h3 style="text-align: center; margin-bottom: 20px;">🌟 Our Bright Future</h3>
+    <h3 style="text-align: center; margin-bottom: 20px;">{get_text("metrics_title", lang)}</h3>
     <div class="metrics-container">
         <div>
-            <div style="font-size: 2rem; color: #FF6B6B; font-weight: bold;">100%</div>
-            <div style="color: #666;">Happiness</div>
+            <div style="font-size: 2rem; color: #FF6B6B; font-weight: bold;">{get_text("metric_happiness_val", lang)}</div>
+            <div style="color: #666;">{get_text("metric_happiness_label", lang)}</div>
         </div>
         <div>
-            <div style="font-size: 2rem; color: #4ECDC4; font-weight: bold;">Infinite</div>
-            <div style="color: #666;">Curiosity</div>
+            <div style="font-size: 2rem; color: #4ECDC4; font-weight: bold;">{get_text("metric_curiosity_val", lang)}</div>
+            <div style="color: #666;">{get_text("metric_curiosity_label", lang)}</div>
         </div>
         <div>
-            <div style="font-size: 2rem; color: #FFC107; font-weight: bold;">Together</div>
-            <div style="color: #666;">Friends</div>
+            <div style="font-size: 2rem; color: #FFC107; font-weight: bold;">{get_text("metric_friends_val", lang)}</div>
+            <div style="color: #666;">{get_text("metric_friends_label", lang)}</div>
         </div>
     </div>
 </div>
