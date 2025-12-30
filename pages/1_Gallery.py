@@ -1,13 +1,12 @@
 import streamlit as st
 import os
 from translations import get_text
+from utils import show_language_selector
 
 st.set_page_config(page_title="Dragon Gallery", page_icon="🖼️", layout="wide")
 
-# Determine Language
-if 'language' not in st.session_state:
-    st.session_state.language = 'en'
-lang = st.session_state.language
+# Determine Language via Sidebar
+lang = show_language_selector()
 
 def local_css(file_name):
     with open(file_name) as f:

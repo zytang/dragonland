@@ -1,12 +1,11 @@
 import streamlit as st
 import random
 from translations import get_text
+from utils import show_language_selector
 
 st.set_page_config(page_title="Dragon Playground", page_icon="🎮", layout="wide")
 
-if 'language' not in st.session_state:
-    st.session_state.language = 'en'
-lang = st.session_state.language
+lang = show_language_selector()
 
 def local_css(file_name):
     with open(file_name) as f:

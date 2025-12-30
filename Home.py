@@ -10,29 +10,10 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+from utils import show_language_selector
+
 # --- Language State ---
-if 'language' not in st.session_state:
-    st.session_state.language = 'en'
-
-def set_language():
-    st.session_state.language = st.session_state.lang_select
-
-# Sidebar Language Selector
-st.sidebar.markdown("### 🌐 Settings")
-lang_options = {'🇺🇸 English': 'en', '🇨🇳 中文 (Chinese)': 'zh'}
-# Reverse lookup for formatting
-current_fmt = '🇺🇸 English' if st.session_state.language == 'en' else '🇨🇳 中文 (Chinese)'
-
-selected_lang = st.sidebar.radio(
-    "Language / 语言",
-    options=list(lang_options.keys()),
-    index=list(lang_options.keys()).index(current_fmt),
-    key="lang_select",
-    on_change=set_language
-)
-# Ensure state sync
-st.session_state.language = lang_options[selected_lang]
-lang = st.session_state.language
+lang = show_language_selector()
 
 # Function to set background image
 def set_bg_hack(main_bg):
