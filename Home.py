@@ -55,11 +55,11 @@ except FileNotFoundError:
 
 # 1. Hero Title (Floating)
 st.markdown("""
-<div style="text-align: center; padding-top: 50px; padding-bottom: 30px;">
-    <h1 class="hero-title" style="color: #FF5A5F; font-size: 5rem; text-shadow: 3px 3px 0px white, 0 0 20px rgba(255,255,255,0.8);">
+<div class="hero-header">
+    <h1 class="hero-title">
         Welcome to Dragonland! 🏰
     </h1>
-    <h3 class="hero-subtitle" style="color: #4A4A4A; font-weight: 800; text-shadow: 2px 2px 0px white;">
+    <h3 class="hero-subtitle">
         Where Friendship & Imagination Fly High
     </h3>
 </div>
