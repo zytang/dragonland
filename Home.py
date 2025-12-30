@@ -1,5 +1,8 @@
 import streamlit as st
 import base64
+import translations
+import importlib
+importlib.reload(translations)
 from translations import get_text
 
 # Page Config
@@ -82,7 +85,7 @@ st.markdown(f"""
             <p>{get_text("story_p3", lang)}</p>
             <div style="display: flex; flex-direction: column; gap: 15px; background: rgba(255,255,255,0.6); padding: 25px; border-radius: 20px; text-align: left; margin-top: 20px;">
                 <div style="display: flex; align-items: start; gap: 15px;">
-                    <span style="font-size: 1.5rem; line-height: 1;">🤖</span>
+                    <span style="font-size: 1.5rem; line-height: 1;">🚀</span>
                     <span>{get_text("story_list_1", lang)}</span>
                 </div>
                 <div style="display: flex; align-items: start; gap: 15px;">

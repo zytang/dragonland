@@ -1,5 +1,11 @@
 import streamlit as st
 import random
+import translations
+import importlib
+importlib.reload(translations)
+import translations
+import importlib
+importlib.reload(translations)
 from translations import get_text
 from utils import show_language_selector
 
@@ -35,7 +41,7 @@ with tab1:
     # Display dragons
     st.markdown(f"<div style='font-size: 3rem; text-align: center;'>{'🐉' * target}</div>", unsafe_allow_html=True)
     
-    answer = st.number_input("Count the dragons / 数数龙:", min_value=1, max_value=20, step=1)
+    answer = st.number_input(get_text("math_input_label", lang), min_value=1, max_value=20, step=1)
     
     if st.button(get_text("math_check", lang), key="check_math"):
         if answer == target:
@@ -65,9 +71,9 @@ with tab2:
     # For now keeping English buttons as they are simple words, or we could add Chinese.
     # Let's keep them bilingual-ish or just simple.
     m1, m2, m3 = st.columns(3)
-    m1.button("Please / 请")
-    m2.button("Thank You / 谢谢")
-    m3.button("Sorry / 对不起")
+    m1.button(get_text("magic_please", lang))
+    m2.button(get_text("magic_thank_you", lang))
+    m3.button(get_text("magic_sorry", lang))
 
 # --- Game 3: Name Creator ---
 with tab3:
@@ -96,11 +102,11 @@ with tab3:
 # --- Game 4: Color Match ---
 with tab4:
     # Randomly pick an element
-    # Structure: (key, Display Name, Expected Color Emoji, Color Name for text)
+    # Structure: (key, Display Name, Expected Color Emoji, Color Name Key)
     elements = [
-        ("fire", get_text("color_fire", lang), "🟥", "Red / 红色"), 
-        ("water", get_text("color_water", lang), "🟦", "Blue / 蓝色"), 
-        ("nature", get_text("color_nature", lang), "🟩", "Green / 绿色")
+        ("fire", get_text("color_fire", lang), "🟥", "color_red"), 
+        ("water", get_text("color_water", lang), "🟦", "color_blue"), 
+        ("nature", get_text("color_nature", lang), "🟩", "color_green")
     ]
     
     if 'target_elem' not in st.session_state:
@@ -110,16 +116,17 @@ with tab4:
     
     st.subheader(get_text("color_q", lang).format(elem_name))
     
-    st.write("Click the matching color block: / 点击对应的颜色方块：")
+    st.write(get_text("color_instruction", lang))
 
     # Better UI: 3 Buttons with Color Emojis
     b1, b2, b3 = st.columns(3)
     cols = [b1, b2, b3]
     
     # Shuffle options for fun? Or keep fixed? Fixed is easier for now.
-    for i, (key, name, emoji, color_label) in enumerate(elements):
+    for i, (key, name, emoji, color_key) in enumerate(elements):
         with cols[i]:
             # Use the emoji directly as the button label for big visual target
+            color_label = get_text(color_key, lang)
             if st.button(f"{emoji} {color_label}", key=f"btn_color_{key}", use_container_width=True):
                 if key == elem_key:
                     st.success(get_text("color_correct", lang))
