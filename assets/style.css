@@ -40,6 +40,8 @@ body,
     text-shadow: 3px 3px 0px white, 0 0 20px rgba(255, 255, 255, 0.8);
     line-height: 1.1;
     margin-bottom: 10px;
+    padding: 0 10px;
+    /* Slight padding to prevent edge touching */
 }
 
 .hero-subtitle {
@@ -48,6 +50,14 @@ body,
     font-weight: 800;
     text-shadow: 2px 2px 0px white;
     font-size: 1.8rem;
+}
+
+/* Metrics - Desktop Default */
+.metrics-container {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    gap: 10px;
 }
 
 /* Button Upgrades */
@@ -85,34 +95,31 @@ body,
 @media only screen and (max-width: 600px) {
     .glass-card {
         padding: 1.5rem;
-        /* Reduce padding */
         border-radius: 15px;
     }
 
     .hero-title {
-        font-size: 2.5rem;
-        /* Shrink title significantly */
+        font-size: 2.2rem;
+        /* Much smaller to prevent word breaking */
+        word-wrap: break-word;
     }
 
     .hero-subtitle {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+    }
+
+    /* Stack metrics vertically on mobile so they don't overlap */
+    .metrics-container {
+        flex-direction: column;
+        gap: 20px;
     }
 
     .stButton>button {
-        padding: 15px 30px !important;
-        /* Smaller button */
-        font-size: 1.2rem !important;
+        padding: 15px 20px !important;
+        font-size: 1.1rem !important;
         width: 100% !important;
-        /* Full width on mobile */
     }
 
-    /* Adjust flex layouts in the story card if needed */
-    .glass-card ul,
-    .glass-card div {
-        text-align: left;
-    }
-
-    /* Prevent horizontal scroll */
     .stApp {
         overflow-x: hidden;
     }

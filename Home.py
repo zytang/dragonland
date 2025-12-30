@@ -104,7 +104,7 @@ with col2:
 st.markdown("""
 <div class="glass-card full-width-card" style="margin-top: 40px;">
     <h3 style="text-align: center; margin-bottom: 20px;">🌟 Our Bright Future</h3>
-    <div style="display: flex; justify-content: space-around; text-align: center;">
+    <div class="metrics-container">
         <div>
             <div style="font-size: 2rem; color: #FF6B6B; font-weight: bold;">100%</div>
             <div style="color: #666;">Happiness</div>
