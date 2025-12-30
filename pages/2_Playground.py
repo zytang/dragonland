@@ -96,38 +96,36 @@ with tab3:
 # --- Game 4: Color Match ---
 with tab4:
     # Randomly pick an element
+    # Structure: (key, Display Name, Expected Color Emoji, Color Name for text)
     elements = [
-        ("fire", get_text("color_fire", lang), "#FF4B4B"), 
-        ("water", get_text("color_water", lang), "#1E90FF"), 
-        ("nature", get_text("color_nature", lang), "#228B22")
+        ("fire", get_text("color_fire", lang), "🟥", "Red / 红色"), 
+        ("water", get_text("color_water", lang), "🟦", "Blue / 蓝色"), 
+        ("nature", get_text("color_nature", lang), "🟩", "Green / 绿色")
     ]
     
     if 'target_elem' not in st.session_state:
         st.session_state.target_elem = random.choice(elements)
     
-    elem_key, elem_name, hex_code = st.session_state.target_elem
+    elem_key, elem_name, correct_emoji, _ = st.session_state.target_elem
     
     st.subheader(get_text("color_q", lang).format(elem_name))
     
-    # Color picker
-    user_color = st.color_picker("Pick a color / 选一个颜色", "#FFFFFF")
-    
-    if st.button("Check / 检查"):
-        # Simple string comparison isn't great for color pickers which return hex.
-        # We'll just check if they are "close enough" or just give feedback.
-        # To make it easy for kids, let's offer 3 buttons instead of a picker.
-        pass
+    st.write("Click the matching color block: / 点击对应的颜色方块：")
 
-    # Better UI: 3 Buttons with Colors
+    # Better UI: 3 Buttons with Color Emojis
     b1, b2, b3 = st.columns(3)
+    cols = [b1, b2, b3]
     
-    for key, name, color in elements:
-        # We need to randomize order in real app, but for now fixed order is fine
-        if st.button(name, key=f"btn_{key}"):
-            if key == elem_key:
-                st.success(get_text("color_correct", lang))
-                st.balloons()
-                st.session_state.target_elem = random.choice(elements)
-                st.rerun()
-            else:
-                st.error(get_text("color_wrong", lang))
+    # Shuffle options for fun? Or keep fixed? Fixed is easier for now.
+    for i, (key, name, emoji, color_label) in enumerate(elements):
+        with cols[i]:
+            # Use the emoji directly as the button label for big visual target
+            if st.button(f"{emoji} {color_label}", key=f"btn_color_{key}", use_container_width=True):
+                if key == elem_key:
+                    st.success(get_text("color_correct", lang))
+                    st.balloons()
+                    # Pick new target
+                    st.session_state.target_elem = random.choice(elements)
+                    st.rerun()
+                else:
+                    st.error(get_text("color_wrong", lang))
