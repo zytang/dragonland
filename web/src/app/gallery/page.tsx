@@ -65,7 +65,7 @@ export default function Gallery() {
 
                 {votedDragon && (
                     <div style={{ marginTop: '20px', color: 'var(--color-primary)', fontSize: '1.2rem', fontWeight: 'bold', animation: 'fadeIn 0.5s' }}>
-                        {getTranslation('vote_success', lang).replace('{}', getTranslation(`${votedDragon}_name` as any, lang).split(' ')[0])}
+                        {getTranslation('vote_success', lang).replace('{name}', getTranslation(`${votedDragon}_name` as any, lang).split(' ')[0])}
                     </div>
                 )}
             </div>
