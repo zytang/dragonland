@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+:root {
+  --font-primary: 'Nunito', sans-serif;
+  --font-heading: 'Fredoka', sans-serif;
+
+  --color-primary: #FF6B6B;
+  --color-secondary: #FF8E53;
+  --color-accent: #4ECDC4;
+  --color-background: #fff9f0;
+  --color-text: #333;
+  --color-text-light: #666;
+  --color-white: #ffffff;
+
+  --gradient-primary: linear-gradient(90deg, #FF6B6B 0%, #FF8E53 100%);
+  --gradient-hover: linear-gradient(90deg, #FF8E53 0%, #FF6B6B 100%);
+
+  --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+  --shadow-button: 0 4px 15px rgba(255, 107, 107, 0.5);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-primary);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  background-image: url('/assets/hero.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Semi-transparent overlay to make text readable over the background image */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  z-index: -1;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 25px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  padding: 3rem;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 2rem;
+}
+
+.btn-primary {
+  border-radius: 50px;
+  background: var(--gradient-primary);
+  color: white;
+  font-family: var(--font-primary);
+  font-weight: 900;
+  border: 4px solid white;
+  padding: 15px 40px;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: var(--shadow-button);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 107, 107, 0.7);
+  background: var(--gradient-hover);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .glass-card {
+    padding: 1.5rem;
+    border-radius: 15px;
+  }
+
+  .btn-primary {
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    width: 100%;
+  }
+}
