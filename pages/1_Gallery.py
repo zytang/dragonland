@@ -22,21 +22,6 @@ st.title(get_text("gallery_title", lang))
 st.markdown(get_text("gallery_subtitle", lang))
 
 # --- Story Modal Function ---
-@st.dialog("Dragon Tale 📖")
-def show_story(name, story, img_path):
-    col1, col2 = st.columns([1, 2])
-    with col1:
-        if os.path.exists(img_path):
-            st.image(img_path, use_container_width=True)
-    with col2:
-        # Title of the modal story
-        st.subheader(f"{name} & Mori")
-        st.markdown(f"_{story}_")
-        st.markdown("---")
-        # Use proper language for Close button
-        if st.button(get_text("close_btn", lang), key=f"close_{name}"):
-            st.rerun()
-
 # --- Card Function ---
 def dragon_card(name, title, img_path, food, superpower, story_text, col, key_id):
     with col:
@@ -52,10 +37,11 @@ def dragon_card(name, title, img_path, food, superpower, story_text, col, key_id
         else:
             st.warning(get_text("img_hatching", lang).format(name))
         
-        # Read Story Button
-        btn_label = get_text("btn_read_story", lang).format(name.split()[0]) # Just use first name for button brevity
-        if st.button(btn_label, key=key_id, use_container_width=True):
-            show_story(name, story_text, img_path)
+        # Story Expander (Compatible with all mobile versions)
+        expander_label = get_text("btn_read_story", lang).format(name.split()[0])
+        with st.expander(expander_label):
+            st.subheader(f"{name} & Mori")
+            st.markdown(f"_{story_text}_")
 
         st.markdown(f"""
         <div style="background-color: #f0f2f6; padding: 10px; border-radius: 10px; text-align: left; margin-top: 10px;">
