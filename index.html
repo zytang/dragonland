@@ -9,13 +9,52 @@
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐉</text></svg>">
   <script src="https://cdn.jsdelivr.net/npm/@stlite/mountable/build/stlite.js"></script>
+  <style>
+    /* Loading Spinner */
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: sans-serif;
+      color: #ff6b6b;
+      background-color: #fff9f0;
+    }
+
+    .spinner {
+      border: 8px solid #ffe3e3;
+      border-top: 8px solid #ff6b6b;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <div class="loading-container">
+      <div class="spinner"></div>
+      <h2>Summoning Dragons...</h2>
+      <p>Please wait while we prepare the magic (First load takes a moment!)</p>
+    </div>
+  </div>
   <script>
     stlite.mount({
-      requirements: ["streamlit", "matplotlib"],
+      requirements: ["streamlit"],
       entrypoint: "Home.py",
       files: {
         ".streamlit/config.toml": {
