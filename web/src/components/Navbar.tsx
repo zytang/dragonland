@@ -26,8 +26,8 @@ export default function Navbar() {
             zIndex: 1000
         }}>
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Link href="/" style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--color-primary)' }}>
-                    Dragonland 🐉
+                <Link href="/" style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--color-primary)' }}>
+                    🐉
                 </Link>
 
                 <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>

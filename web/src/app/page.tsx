@@ -13,7 +13,7 @@ export default function Home() {
       {/* Hero Section */}
       <div style={{ textAlign: 'center', marginBottom: '50px' }}>
         <h1 style={{
-          fontSize: '4rem',
+          fontSize: '2.8rem',
           color: 'var(--color-primary)',
           textShadow: '3px 3px 0px white',
           marginBottom: '10px'
