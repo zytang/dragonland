@@ -50,19 +50,39 @@
     <div class="spinner"></div>
     <h2>Summoning Dragons...</h2>
     <p>Please wait while we prepare the magic (First load takes a moment!)</p>
+    <div id="error-log"
+      style="color: red; font-family: monospace; white-space: pre-wrap; margin-top: 20px; font-size: 12px; max-width: 90%;">
+    </div>
   </div>
   <script>
     const root = document.getElementById("root");
     const loading = document.getElementById("loading");
+    const errorLog = document.getElementById("error-log");
+
+    function logError(msg) {
+      errorLog.innerText += "\n[ERROR]: " + msg;
+      console.error(msg);
+    }
+
+    window.onerror = function (message, source, lineno, colno, error) {
+      logError(message + " (" + source + ":" + lineno + ")");
+    };
+
+    window.addEventListener("unhandledrejection", function (event) {
+      logError("Unhandled Rejection: " + event.reason);
+    });
 
     // Observer to hide loading when root gets content
     const observer = new MutationObserver((mutations) => {
       if (root.childNodes.length > 0) {
-        loading.style.display = 'none';
-        observer.disconnect();
+        // Only hide if it's not an error message from stlite itself
+        if (!root.innerText.includes("Error")) {
+          loading.style.display = 'none';
+          observer.disconnect();
+        }
       }
     });
-    observer.observe(root, { childList: true });
+    observer.observe(root, { childList: true, subtree: true });
 
     stlite.mount({
       requirements: ["streamlit"],
