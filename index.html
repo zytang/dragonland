@@ -45,14 +45,25 @@
 </head>
 
 <body>
-  <div id="root">
-    <div class="loading-container">
-      <div class="spinner"></div>
-      <h2>Summoning Dragons...</h2>
-      <p>Please wait while we prepare the magic (First load takes a moment!)</p>
-    </div>
+  <div id="root"></div>
+  <div id="loading" class="loading-container">
+    <div class="spinner"></div>
+    <h2>Summoning Dragons...</h2>
+    <p>Please wait while we prepare the magic (First load takes a moment!)</p>
   </div>
   <script>
+    const root = document.getElementById("root");
+    const loading = document.getElementById("loading");
+
+    // Observer to hide loading when root gets content
+    const observer = new MutationObserver((mutations) => {
+      if (root.childNodes.length > 0) {
+        loading.style.display = 'none';
+        observer.disconnect();
+      }
+    });
+    observer.observe(root, { childList: true });
+
     stlite.mount({
       requirements: ["streamlit"],
       entrypoint: "Home.py",
