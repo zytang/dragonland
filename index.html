@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Dragonland</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐉</text></svg>">
+  <script src="https://cdn.jsdelivr.net/npm/@stlite/mountable/build/stlite.js"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script>
+    stlite.mount({
+      requirements: ["streamlit", "matplotlib"],
+      entrypoint: "Home.py",
+      files: {
+        ".streamlit/config.toml": {
+          url: "./.streamlit/config.toml",
+        },
+        "Home.py": {
+          url: "./Home.py",
+        },
+        "utils.py": {
+          url: "./utils.py",
+        },
+        "i18n.py": {
+          url: "./i18n.py",
+        },
+        "pages/1_Gallery.py": {
+          url: "./pages/1_Gallery.py",
+        },
+        "pages/2_Playground.py": {
+          url: "./pages/2_Playground.py",
+        },
+        "assets/style.css": {
+          url: "./assets/style.css",
+        },
+        "assets/hero.png": {
+          url: "./assets/hero.png",
+        },
+        "assets/dragon_fire.png": {
+          url: "./assets/dragon_fire.png",
+        },
+        "assets/dragon_nature.png": {
+          url: "./assets/dragon_nature.png",
+        },
+        "assets/dragon_water.png": {
+          url: "./assets/dragon_water.png",
+        },
+        "assets/dragon_ice.png": {
+          url: "./assets/dragon_ice.png",
+        },
+        "assets/dragon_gold.png": {
+          url: "./assets/dragon_gold.png",
+        },
+      },
+    }, document.getElementById("root"));
+  </script>
+</body>
+
+</html>
