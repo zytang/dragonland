@@ -27,7 +27,7 @@ def show_story(name, story, img_path):
     col1, col2 = st.columns([1, 2])
     with col1:
         if os.path.exists(img_path):
-            st.image(img_path, use_column_width=True)
+            st.image(img_path, use_container_width=True)
     with col2:
         # Title of the modal story
         st.subheader(f"{name} & Mori")
@@ -48,7 +48,7 @@ def dragon_card(name, title, img_path, food, superpower, story_text, col, key_id
         """, unsafe_allow_html=True)
         
         if os.path.exists(img_path):
-            st.image(img_path, use_column_width=True)
+            st.image(img_path, use_container_width=True)
         else:
             st.warning(get_text("img_hatching", lang).format(name))
         
