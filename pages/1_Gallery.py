@@ -33,7 +33,7 @@ def dragon_card(name, title, img_path, food, superpower, story_text, col, key_id
         """, unsafe_allow_html=True)
         
         if os.path.exists(img_path):
-            st.image(img_path, use_container_width=True)
+            st.image(img_path, use_column_width=True)
         else:
             st.warning(get_text("img_hatching", lang).format(name))
         
